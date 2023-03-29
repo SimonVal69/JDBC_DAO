@@ -1,6 +1,7 @@
 import Dao.EmployeeDAO;
 import Dao.EmployeeDAOImpl;
 import UserClasses.Employee;
+
 import java.sql.*;
 import java.util.List;
 
@@ -17,19 +18,22 @@ public class Application {
         task2Part5();
     }
 
+    //Получить и вывести в консоль полные данные об одном из работников(имя, фамилия, пол, город) по id
     public static void task1() {
         final String user = "postgres";
         final String password = "hyantiv4";
         final String url = "jdbc:postgresql://localhost:5432/skypro";
+        int id = 3;
 
-        try (final Connection connection =
+        try (Connection connection =
                      DriverManager.getConnection(url, user, password);
              PreparedStatement statement =
                      connection.prepareStatement("SELECT id, first_name, last_name, gender, age, city_name " +
                              "FROM employee " +
                              "LEFT JOIN city ON employee.city_id = city.city_id " +
-                             "ORDER BY id")) {
+                             "WHERE id = ?")) {
             System.out.println("Соединение установлено!");
+            statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 int idOfEmployee = resultSet.getInt("id");
