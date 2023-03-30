@@ -1,6 +1,7 @@
 package Dao;
 
 import UserClasses.Employee;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,8 +66,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             statement.setString(3, gender);
             statement.setInt(4, age);
             statement.setInt(5, cityId);
-            statement.execute();
-            System.out.println("Добавлена новая запись в БД");
+            System.out.println("Добавлена " + statement.executeUpdate() + " новая запись в БД");
         } catch (SQLException e) {
             System.out.println("Ошибка при подключении к базе данных!");
             e.printStackTrace();
@@ -85,8 +85,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             System.out.println("Соединение установлено!");
             statement.setInt(1, age);
             statement.setInt(2, idOfEmployee);
-            statement.execute();
-            System.out.println("Запись в БД с id = " + idOfEmployee + " изменена");
+            System.out.println("Изменена " + statement.executeUpdate() + " запись в БД");
         } catch (SQLException e) {
             System.out.println("Ошибка при подключении к базе данных!");
             e.printStackTrace();
@@ -103,8 +102,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
                      connection.prepareStatement("DELETE FROM employee WHERE id =?")) {
             System.out.println("Соединение установлено!");
             statement.setInt(1, idOfEmployee);
-            statement.execute();
-            System.out.println("Запись в БД с id = " + idOfEmployee + " удалена");
+            System.out.println("Удалена " + statement.executeUpdate() + " запись из БД");
         } catch (SQLException e) {
             System.out.println("Ошибка при подключении к базе данных!");
             e.printStackTrace();
